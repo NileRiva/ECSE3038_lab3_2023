@@ -89,13 +89,7 @@ async def update_tank(id: str,request:Request):
 #DELETE /data/:id
 @app.delete("/data/{id}",status_code=204)
 async def delete_tank(id: str):
-    deleted_tank = await db["tanks"].delete_one({"_id": ObjectId(id)})
-
-    if deleted_tank.deleted_count == 1:
-        return {"Success":"Object Deleted"}
-    else:
-        raise HTTPException(status_code=400,detail="Entry does not exist")
-
+    await db["tanks"].delete_one({"_id": ObjectId(id)})
 
 
 if __name__ == "__main__":
