@@ -208,6 +208,6 @@ Expected Response
 
 I suppose you gave us a joke first, then you asked for our favourite pokemon, so what next ???
 
-Hmmm, I used text for the joke, picture for the pokemon , so maybe, the next natural step in information progression is a video. So please enjoy this
+Hmmm, I used text for the joke, picture for the pokemon , so maybe, the next natural step in information progression is a video. So please enjoy this, my fave J. Cole #ColeWorld :snowman:
 
 [![Final video of fixing issues in your code in VS Code](https://img.youtube.com/vi/ZPCAvzIFY-s/maxresdefault.jpg)](https://youtu.be/ZPCAvzIFY-s)
