@@ -210,6 +210,4 @@ I suppose you gave us a joke first, then you asked for our favourite pokemon, so
 
 Hmmm, I used text for the joke, picture for the pokemon , so maybe, the next natural step in information progression is a video. So please enjoy this
 
-[![Final video of fixing issues in your code in VS Code]
-(https://img.youtube.com/vi/ZPCAvzIFY-s/maxresdefault.jpg)]
-(https://youtu.be/ZPCAvzIFY-s)
+[![Final video of fixing issues in your code in VS Code](https://img.youtube.com/vi/ZPCAvzIFY-s/maxresdefault.jpg)](https://youtu.be/ZPCAvzIFY-s)
