@@ -34,7 +34,7 @@ app.add_middleware(
 
 
 
-@app.post("/profile")
+@app.post("/profile",status_code=201)
 async def addprofile(request:Request):
     profiletemp = await request.json()
     profiletemp["last_updated"]= currdatetime()
@@ -44,7 +44,7 @@ async def addprofile(request:Request):
     createdprofile = await db2["profile"].find_one({"_id": newprofile.inserted_id })
     return createdprofile
 
-@app.get("/profile",status_code=201)
+@app.get("/profile",status_code=200)#200 is Default though
 async def getprofile(request:Request):
     userprofile = await db2["profile"].find().to_list(1)#parameter limits amount of objects
     if len(userprofile)==0:
@@ -79,7 +79,7 @@ async def update_tank(id: str,request:Request):
         return patched_tank
     raise HTTPException(status_code=304,detail="No Entity was Modified by this Request")
 
-@app.delete("/data/{id}")
+@app.delete("/data/{id}",status_code=204)
 async def delete_tank(id: str):
     deleted_tank = await db["tanks"].delete_one({"_id": ObjectId(id)})
 
