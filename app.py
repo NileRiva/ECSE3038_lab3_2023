@@ -6,9 +6,12 @@ import pydantic
 import os
 from dotenv import load_dotenv
 from datetime import datetime
-
+import uvicorn
 
 app = FastAPI()
+
+#FastAPI (Uvicorn) runs on 8000 by Default
+
 
 load_dotenv() #Nile Code, loads things from the coding environment
 client = motor.motor_asyncio.AsyncIOMotorClient(os.getenv("MONG0_CONNECTION_STRING"))#Attempt at hiding URL - Nile
@@ -33,7 +36,7 @@ app.add_middleware(
 )
 
 
-
+#POST /profile
 @app.post("/profile",status_code=201)
 async def addprofile(request:Request):
     profiletemp = await request.json()
@@ -44,13 +47,15 @@ async def addprofile(request:Request):
     createdprofile = await db2["profile"].find_one({"_id": newprofile.inserted_id })
     return createdprofile
 
+#GET /profile
 @app.get("/profile",status_code=200)#200 is Default though
 async def getprofile(request:Request):
     userprofile = await db2["profile"].find().to_list(1)#parameter limits amount of objects
     if len(userprofile)==0:
-        return None
+        return {}
     return userprofile[len(userprofile)-1]
 
+#POST /data
 @app.post("/data",status_code=201)
 async def create_new_tank(request:Request):
     tank_object = await request.json()
@@ -59,6 +64,7 @@ async def create_new_tank(request:Request):
     created_tank = await db["tanks"].find_one({"_id": new_tank.inserted_id })
     return created_tank
 
+#GET /data
 @app.get("/data")
 async def get_all_tanks():
     tanks = await db["tanks"].find().to_list(999)#parameter limits amount of objects
@@ -69,6 +75,7 @@ async def get_one_tank_by_id(id: str):
     tank = await db["tanks"].find_one({"_id": ObjectId(id)})
     return tank
 
+#PATCH /data/:id
 @app.patch("/data/{id}")
 async def update_tank(id: str,request:Request):
     tank_object = await request.json()
@@ -79,6 +86,7 @@ async def update_tank(id: str,request:Request):
         return patched_tank
     raise HTTPException(status_code=304,detail="No Entity was Modified by this Request")
 
+#DELETE /data/:id
 @app.delete("/data/{id}",status_code=204)
 async def delete_tank(id: str):
     deleted_tank = await db["tanks"].delete_one({"_id": ObjectId(id)})
@@ -90,3 +98,5 @@ async def delete_tank(id: str):
 
 
 
+if __name__ == "__main__":
+    uvicorn.run(app, host='0.0.0.0' , port=8000)
